@@ -1,9 +1,9 @@
 class BookMailer < ApplicationMailer
-  def part_email(subscription = Subscription.last)
+  def part_email(subscription)
     @subscription = subscription
     @book = subscription.book
     window = @book.window(subscription.pos)
-    raise 'done' if window.none?
+    return if window.none?
     @content = window.map(&:content).join("\n")
 
     total_words = @book.total_words
