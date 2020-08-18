@@ -1,0 +1,31 @@
+<%= form_for :book, url: '/books', method: :post, html: { id: 'submit-form' } do |f| %>
+  <div class="row">
+    <div class="five columns text-left">
+      <%= f.text_field :email, placeholder: 'e-mail', style: "width: 100%" %>
+    </div>
+    <div class="four columns text-center">
+      <label class="button" style="width: 100%">
+        <%= f.file_field :epub, accept: "application/epub+zip", style: "width: 100%" %>
+      </label>
+    </div>
+    <div class="three columns text-right">
+      <%= f.submit "Send It!", class: "button-primary", style: "width: 100%", onclick: "$('#submit-form').hide();$('#spinner').show();" %>
+    </div>
+  </div>
+<% end %>
+<div class="row" id="spinner" style="display:none">
+  <div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
+</div>
+<hr />
+<div class="row bold">Is it really free?</div>
+<div class="row">Yep.</div>
+<div class="row bold">Are you going to use my email for adversizing purposes?</div>
+<div class="row">Nope.</div>
+<div class="row bold">I don't own any EPUBs, how can I use this?</div>
+<div class="row">Download some free from <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a>!</div>

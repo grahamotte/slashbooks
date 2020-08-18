@@ -4,12 +4,67 @@
     <title>Bytebooks</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
   </head>
-
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class="header">
+        <%= link_to root_path do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book" width="100" height="100" viewBox="0 0 24 24" stroke-width="0.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z"/>
+            <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+            <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+            <line x1="3" y1="6" x2="3" y2="19" />
+            <line x1="12" y1="6" x2="12" y2="19" />
+            <line x1="21" y1="6" x2="21" y2="19" />
+          </svg>
+        <% end %>
+        <h2 class="title">Book By Bit</h2>
+        <% unless @hide_props %>
+          <div class="row value-props">
+            <div class="four columns value-prop">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-upload" width="100" height="100" viewBox="0 0 24 24" stroke-width="0.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z"/>
+                <path d="M7 18a4.6 4.4 0 0 1 0 -9h0a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1" />
+                <polyline points="9 15 12 12 15 15" />
+                <line x1="12" y1="12" x2="12" y2="21" />
+              </svg>
+              <br />
+              Upload your EPUB book and it will be parsed into ~500 word sections.
+            </div>
+            <div class="four columns value-prop">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="100" height="100" viewBox="0 0 24 24" stroke-width="0.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z"/>
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <polyline points="3 7 12 13 21 7" />
+              </svg>
+              <br />
+              Each day you'll get an email with the next section in your book.
+            </div>
+            <div class="four columns value-prop">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mood-happy" width="100" height="100" viewBox="0 0 24 24" stroke-width="0.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z"/>
+                <circle cx="12" cy="12" r="9" />
+                <line x1="9" y1="9" x2="9.01" y2="9" />
+                <line x1="15" y1="9" x2="15.01" y2="9" />
+                <path d="M8 13a4 4 0 1 0 8 0m0 0H8" />
+              </svg>
+              <br />
+              Read more & enjoy life!
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <hr style="margin-top: 1.5rem; margin-bottom: 5rem" />
+      <% if flash[:error] %>
+        <div class="error-banner"><%= flash[:error] %></div>
+      <% end %>
+      <% if flash[:success] %>
+        <div class="success-banner"><%= flash[:success] %></div>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

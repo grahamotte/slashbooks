@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="four columns"><b>Subscription ID</b></div>
+  <div class="eight columns"><%= @sub.uuid %></div>
+</div>
+<div class="row">
+  <div class="four columns"><b>Email</b></div>
+  <div class="eight columns"><%= @sub.email %></div>
+</div>
+<div class="row">
+  <div class="four columns"><b>Book</b></div>
+  <div class="eight columns"><%= @sub.book.full_title %></div>
+</div>
+<div class="row">
+  <div class="four columns"><b>Progress</b></div>
+  <div class="eight columns"><%= number_to_percentage(@sub.pos.to_f / @sub.book.total_words * 100) %></div>
+</div>
+<br />
+<br />
+<%= button_to(
+  "Cancel Subscription",
+  book_path(@sub.uuid),
+  method: :delete
+) %>
