@@ -13,6 +13,7 @@ gem 'bootstrap'
 gem 'pg'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'gepub'
+gem 'rollbar'
 
 group :development, :test do
   gem 'pry'
