@@ -1,3 +1,5 @@
+require_relative Rails.root.join('dev_secrets.rb') if File.exists?(Rails.root.join('dev_secrets.rb'))
+
 Rails.application.configure do
   config.action_controller.enable_fragment_cache_logging = true
   config.action_controller.perform_caching = true
