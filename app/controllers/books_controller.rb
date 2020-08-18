@@ -29,7 +29,7 @@ class BooksController < ApplicationController
 
   def more
     BookMailer.part_email(sub).deliver_later
-    flash[:success] = 'Email sent!'
+    flash[:success] = 'Done! Go check your e-mail!'
     render :blank
   end
 

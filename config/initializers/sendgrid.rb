@@ -1,5 +1,5 @@
 ActionMailer::Base.smtp_settings = {
-  domain: 'bookbybit.app',
+  domain: 'slashbooks.app',
   address: "smtp.sendgrid.net",
   port: 587,
   authentication: :plain,
