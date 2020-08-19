@@ -14,6 +14,7 @@ gem 'pg'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'gepub'
 gem 'rollbar'
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   gem 'pry'

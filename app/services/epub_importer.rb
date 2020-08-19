@@ -7,9 +7,8 @@ class EpubImporter
 
   def initialize(file)
     @file = file
-    @digest = Digest::SHA512.hexdigest(file.read)
-    file.rewind
-    @parsed = GEPUB::Book.parse(file)
+    @digest = Digest::SHA512.hexdigest(epub_file.read)
+    @parsed = GEPUB::Book.parse(epub_file)
     @pos = 0
   end
 
@@ -22,6 +21,8 @@ class EpubImporter
     return existing if existing.present?
 
     ActiveRecord::Base.transaction do
+      book.epub.attach(io: epub_file, filename: "#{book.title} - #{book.author}.epub")
+
       parsed.items.each do |key, item|
         next if item.blank?
         next if item.content.blank?
@@ -47,6 +48,11 @@ class EpubImporter
   end
 
   private
+
+  def epub_file
+    @file.rewind
+    @file
+  end
 
   def slice_html(n)
     if n.name == 'img'

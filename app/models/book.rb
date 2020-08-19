@@ -9,6 +9,8 @@
 #
 
 class Book < ApplicationRecord
+  has_one_attached :epub
+
   has_many :texts, -> { where(media_type: Constants::HTML_LIKE_TYPES).order(:pos) }, dependent: :destroy, class_name: "BookPart", inverse_of: :book
   has_many :images, -> { where(media_type: Constants::IMAGE_LIKE_TYPES).order(:pos) }, dependent: :destroy, class_name: "BookPart", inverse_of: :book
 
