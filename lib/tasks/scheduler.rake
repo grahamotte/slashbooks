@@ -5,5 +5,7 @@ task send_email_parts: :environment do
 end
 
 task remove_unused_books: :environment do
-  BookPart.where.not(book_id: Subscription.all.map(&:book_id)).destroy_all
+  active_book_ids = Subscription.all.map(&:book_id)
+  Book.where.not(id: active_book_ids).destroy_all
+  BookPart.where.not(book_id: active_book_ids).destroy_all
 end
