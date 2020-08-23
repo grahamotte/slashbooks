@@ -8,7 +8,7 @@ class BookMailer < ApplicationMailer
 
     total_words = @book.total_words
     words_so_far = @book.texts.where(pos: (0..window.last.pos)).sum(&:word_count)
-    @part_of = "(#{(words_so_far.to_f / 500).ceil} of #{(total_words.to_f / 500).ceil})"
+    @part_of = "(#{(words_so_far.to_f / 1000).ceil} of #{(total_words.to_f / 1000).ceil})"
 
     Nokogiri::HTML(@content).css('img').each do |i|
       src = i.attribute('src').value

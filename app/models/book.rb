@@ -26,7 +26,7 @@ class Book < ApplicationRecord
     texts.sum(&:word_count)
   end
 
-  def window(pos, target: 500)
+  def window(pos, target: 1000)
     c = 0
 
     end_pos = texts
