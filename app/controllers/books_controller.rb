@@ -2,18 +2,22 @@ class BooksController < ApplicationController
   before_action :clear_flashes
   before_action -> { @hide_props = true }, except: [:index, :create]
   before_action :flash_when_no_sub_found, only: [:edit, :destroy, :more]
+
   def index
   end
 
   def create
-    book = EpubImporter.call(epub_param)
-    sub = Subscription.create!(book: book, email: email_param)
-    BookMailer.part_email(sub).deliver_later
-    flash[:success] = "Success! #{email_param} should receive the first part soon!"
+    if email_param.present? && epub_param.present?
+      book = EpubImporter.call(epub_param)
+      sub = Subscription.create!(book: book, email: email_param)
+      BookMailer.part_email(sub).deliver_later
+      flash[:success] = "Success! #{email_param} should receive the first part soon!"
+    else
+      flash[:error] = "Looks like something is missing..."
+    end
   rescue StandardError => e
-    puts e.message
-    puts e.backtrace
     flash_unknown_error
+    Rollbar.error(e)
   ensure
     render :index
   end
