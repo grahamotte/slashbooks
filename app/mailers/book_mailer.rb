@@ -21,7 +21,7 @@ class BookMailer < ApplicationMailer
     end
 
     mail(
-      from: 'robit@zoid.berg',
+      from: 'noreply@slashbooks.app',
       to: subscription.email,
       subject: "#{@part_of} #{@book.title} by #{@book.author}",
     )
