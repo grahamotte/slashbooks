@@ -39,7 +39,7 @@ class EpubImporter
         when 'application/x-font-ttf', 'text/css'
           nil
         else
-          raise "failed import for #{item.media_type} #{item.content}"
+          # raise "failed import for #{item.media_type} #{item.content}"
         end
       end
     end
@@ -98,10 +98,10 @@ class EpubImporter
   end
 
   def author
-    parsed.metadata.creator.content
+    parsed.metadata.creator&.content || 'Unknown Author'
   end
 
   def title
-    parsed.metadata.title.content
+    parsed.metadata.title&.content || 'Unknown Title'
   end
 end
