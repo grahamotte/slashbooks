@@ -62,11 +62,15 @@ class BooksController < ApplicationController
 
   def email_param
     params.require(:book).require(:email)
+  rescue StandardError => e
+    Rollbar.error(e)
   end
 
   def epub_param
     f = params.require(:book).require(:epub)
     f.rewind
     f
+  rescue StandardError => e
+    Rollbar.error(e)
   end
 end
