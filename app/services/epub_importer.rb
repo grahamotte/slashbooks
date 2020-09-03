@@ -1,6 +1,6 @@
 class EpubImporter
   KEEP_TAGS = %w[
-    i span p h1 h2 h3 h4 h5 h6 img
+    i span p h1 h2 h3 h4 h5 h6 img div
   ]
 
   attr_accessor :file, :parsed, :pos, :digest
@@ -55,7 +55,10 @@ class EpubImporter
   end
 
   def slice_html(n)
-    if n.name == 'img'
+    name = n&.name
+    name = 'p' if name == 'div'
+
+    if name == 'img'
       return <<~HTML
         <div style="text-align: center">
           <img
@@ -66,12 +69,12 @@ class EpubImporter
       HTML
     end
 
-    return n.text.presence if n.name == 'text'
+    return n.text.presence if name == 'text'
 
-    if KEEP_TAGS.include?(n.name)
-      inner = n.children.map { |c| slice_html(c) }.flatten.join('')
-      return if inner.blank?
-      return "<#{n.name}>#{inner}</#{n.name}>"
+    if KEEP_TAGS.include?(name)
+      inner = n.children.flat_map { |c| slice_html(c) }.compact.join(' ')
+      return nil if inner.blank?
+      return "<#{name}>#{inner}</#{name}>"
     end
 
     if n.children.present?
