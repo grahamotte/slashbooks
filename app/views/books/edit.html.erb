@@ -16,8 +16,4 @@
 </div>
 <br />
 <br />
-<%= button_to(
-  "Cancel Subscription",
-  book_path(@sub.uuid),
-  method: :delete
-) %>
+<%= button_to("Cancel Subscription", book_path(@sub.uuid), method: :delete) %>
