@@ -11,8 +11,16 @@
   <div class="eight columns"><%= @sub.book.full_title %></div>
 </div>
 <div class="row">
+  <div class="four columns"><b>Words / Message</b></div>
+  <div class="eight columns"><%= @sub.words_per_message %></div>
+</div>
+<div class="row">
   <div class="four columns"><b>Progress</b></div>
-  <div class="eight columns"><%= number_to_percentage(@sub.pos.to_f / @sub.book.total_words * 100) %> (position <%= @sub.pos %> of <%= @sub.book.texts.count %>)</div>
+  <div class="eight columns">
+    <div><%= number_to_percentage((@sub.pos / @sub.parts_count).to_f * 100, precision: 2) %></div>
+    <div>Position <%= @sub.pos %> of <%= @sub.parts_count %></div>
+    <div>Message <%= @sub.messages_so_far_count %> of <%= @sub.messages_total_count %></div>
+  </div>
 </div>
 <br />
 <br />

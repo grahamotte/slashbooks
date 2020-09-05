@@ -2,10 +2,12 @@
 #
 # Table name: books
 #
-#  id     :bigint           not null, primary key
-#  author :string           not null
-#  title  :string           not null
-#  digest :string           not null
+#  id         :bigint           not null, primary key
+#  author     :string           not null
+#  title      :string           not null
+#  digest     :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Book < ApplicationRecord

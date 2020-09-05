@@ -9,6 +9,8 @@
 #  media_type :string           not null
 #  href       :string
 #  content    :binary           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 class BookPart < ApplicationRecord
   belongs_to :book

@@ -1,22 +1,17 @@
 class BookMailer < ApplicationMailer
   def part_email(subscription)
     @subscription = subscription
-    @w_per = subscription.words_per_message
     @book = subscription.book
-    window = @book.window(subscription.pos, target: @w_per)
+    @window = subscription.current_window
+    @content = @window.map(&:content).join("\n")
 
-    return if window.none?
-
-    @content = window.map(&:content).join("\n")
-
-    total_words = @book.total_words
-    words_so_far = @book.texts.where(pos: (0..window.last.pos)).sum(&:word_count)
-    @part_of = "(#{(words_so_far.to_f / @w_per).ceil} of #{(total_words.to_f / @w_per).ceil})"
+    return if subscription.done?
 
     Nokogiri::HTML(@content).css('img').each do |i|
       src = i.attribute('src').value
       name = src.split('/').last
       found = @book.images.find { |i| i.href.split('/').last == name }
+
       if found
         attachments.inline[name] = found.content
         @content = @content.gsub(src, attachments[name].url)
@@ -26,9 +21,9 @@ class BookMailer < ApplicationMailer
     mail(
       from: 'robot@slashbooks.app',
       to: subscription.email,
-      subject: "#{@part_of} #{@book.title} by #{@book.author}",
+      subject: "(#{@subscription.messages_so_far_count} of #{@subscription.messages_total_count}) #{@book.title} by #{@book.author}",
     )
 
-    subscription.update!(pos: window.last.pos)
+    subscription.update!(pos: @subscription.current_window.last.pos)
   end
 end
