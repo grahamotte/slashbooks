@@ -12,7 +12,7 @@
 </div>
 <div class="row">
   <div class="four columns"><b>Progress</b></div>
-  <div class="eight columns"><%= number_to_percentage(@sub.pos.to_f / @sub.book.total_words * 100) %></div>
+  <div class="eight columns"><%= number_to_percentage(@sub.pos.to_f / @sub.book.total_words * 100) %> (position <%= @sub.pos %> of <%= @sub.book.texts.count %>)</div>
 </div>
 <br />
 <br />
