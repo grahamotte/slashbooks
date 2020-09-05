@@ -17,6 +17,10 @@
  *= require_self
  */
 
+.m-0 {
+  margin: 0;
+}
+
 .error-banner {
   display: inline-block;
   padding: 0.5em 1em;
@@ -56,16 +60,20 @@
 .text-right {
   text-align: right;
 }
+
 .bold {
   font-weight: bold;
 }
+
 .container {
   max-width: 800px;
 }
+
 .header {
   margin-top: 7rem;
   text-align: center;
 }
+
 .value-prop {
   margin-top: 1rem;
 }

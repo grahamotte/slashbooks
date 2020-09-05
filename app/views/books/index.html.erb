@@ -12,6 +12,19 @@
       <%= f.submit "Send It!", class: "button-primary", style: "width: 100%", onclick: "$('#submit-form').hide();$('#spinner').show();" %>
     </div>
   </div>
+  <details style="margin-top: 1em">
+    <summary>Advanced Configuration</summary>
+    <p style="margin-top: 2em">
+      <div class="row" style="display: flex; align-items: center; margin-bottom: 1em">
+        <div class="four columns text-right">Words per e-mail</div>
+        <div class="eight columns"><%= f.select :words_per_message, [1000, 500, 1500, 2000, 2500, 3000, 3500, 4000], {}, { class: "m-0" } %></div>
+      </div>
+      <div class="row" style="display: flex; align-items: center; margin-bottom: 1em">
+        <div class="four columns text-right">Start from position</div>
+        <div class="eight columns"><%= f.number_field :pos, value: 0, min: 0, class: "m-0" %></div>
+      </div>
+    </p>
+  </details>
 <% end %>
 <div class="row" id="spinner" style="display:none">
   <div class="spinner">
@@ -30,7 +43,7 @@
 <div class="row">Download some free from <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a>!</div>
 <br />
 <div class="row bold">Are you going to use my email for adversizing purposes?</div>
-<div class="row">Nope. Your email is deleted when you stop requesting emails.</div>
+<div class="row">No. Your email is deleted if you stop requesting emails.</div>
 <br />
 <div class="row bold">Can I see a preview?</div>
 <%= image_tag '/preview.png', width: '100%' %>

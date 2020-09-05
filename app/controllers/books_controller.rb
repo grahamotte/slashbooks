@@ -9,14 +9,19 @@ class BooksController < ApplicationController
   def create
     if email_param.present? && epub_param.present?
       book = EpubImporter.call(epub_param)
-      sub = Subscription.create!(book: book, email: email_param)
+      sub = Subscription.create!(
+        book: book,
+        email: email_param,
+        pos: pos_param,
+        words_per_message:  words_per_message_param,
+      )
       BookMailer.part_email(sub).deliver_later
       flash[:success] = "Success! #{email_param} should receive the first part soon!"
     else
       flash[:error] = "Looks like something is missing..."
     end
   rescue StandardError => e
-    flash_unknown_error
+    flash[:error] = "Crap! Something went wrong!"
     Rollbar.error(e)
   ensure
     render :index
@@ -60,17 +65,25 @@ class BooksController < ApplicationController
     @sub ||= Subscription.find_by(uuid: params.require(:id))
   end
 
+  def book_params
+    params.require(:book).permit(:email, :epub, :pos, :words_per_message)
+  end
+
   def email_param
-    params.require(:book).require(:email)
-  rescue StandardError => e
-    Rollbar.error(e)
+    book_params.dig(:email)
   end
 
   def epub_param
-    f = params.require(:book).require(:epub)
+    f = book_params.dig(:epub)
     f.rewind
     f
-  rescue StandardError => e
-    Rollbar.error(e)
+  end
+
+  def pos_param
+    (book_params.dig(:pos) || 0).to_i
+  end
+
+  def words_per_message_param
+    (book_params.dig(:words_per_message) || 1000).to_i
   end
 end
