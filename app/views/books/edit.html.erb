@@ -24,4 +24,9 @@
 </div>
 <br />
 <br />
-<%= button_to("Cancel Subscription", book_path(@sub.uuid), method: :delete) %>
+<div>
+  <%= button_to("Send the next part", url_for(controller: 'books', action: 'more', id: @sub.uuid), method: :get) %>
+</div>
+<div>
+  <%= button_to("Cancel Subscription", book_path(@sub.uuid), method: :delete) %>
+</div>
