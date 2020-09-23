@@ -39,8 +39,14 @@
 <div class="row bold">I don't own any EPUBs, how can I use this?</div>
 <div class="row">Download some free from <a href="https://www.gutenberg.org/" target="_blank">Project Gutenberg</a> or <a href="https://www.kobo.com">Kobo</a>!</div>
 <br />
-<div class="row bold">Are you going to use my email for adversizing purposes?</div>
-<div class="row">No. Your email is deleted if you stop requesting emails.</div>
+<div class="row bold">Does it cost anything?</div>
+<div class="row">
+  Nope. I made this app for me and a few of my friends to use and that's all it really ever needs to accomplish.
+  However, based on the server size, it can support ~1000 users so I've opened it up for anyone interested.
+  <br />
+  <br />
+  There are current <%= Subscription.count %> users.
+</div>
 <br />
 <div class="row bold">Can I see a preview?</div>
 <%= image_tag '/preview.png', width: '100%' %>
